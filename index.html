@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araling Panlipunan 9 - Modyul 2</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050505;
+            color: #f3f4f6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem 4rem;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+        }
+
+        /* --- MODERN ULTRA-ESTHETIC LOGIN SCREEN --- */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(3, 3, 3, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInOverlay 0.5s ease-out;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-card-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            padding: 2px; /* Para sa glowing gradient border */
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(16, 185, 129, 0.2), rgba(255, 255, 255, 0.05));
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(59, 130, 246, 0.15);
+            animation: slideUpCard 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUpCard {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .login-card {
+            background: rgba(12, 12, 15, 0.95);
+            padding: 2.8rem 2.2rem;
+            border-radius: 22px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .login-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card p {
+            color: #9ca3af;
+            font-size: 0.92rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.04);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+            opacity: 0.95;
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        /* ------------------------------------------- */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .student-info-display {
+            font-size: 0.9rem;
+            color: #38bdf8;
+            background: rgba(30, 58, 138, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin: 2rem auto 1rem auto;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #f3f4f6;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .hero-subtitle {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .card {
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            width: 220px;
+            height: 320px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 16px;
+            background: linear-gradient(to top, rgba(5,5,5,0.95) 15%, rgba(5,5,5,0.3) 60%, rgba(5,5,5,0) 100%);
+            z-index: 1;
+            transition: opacity 0.3s;
+        }
+
+        .card-content { position: relative; z-index: 2; }
+        .card-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #38bdf8; margin-bottom: 0.5rem; font-weight: 700; }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #ffffff; }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.04);
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+        }
+
+        .card-1 { background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80'); }
+        .card-2 { background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=600&q=80'); }
+        .card-3 { background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'); }
+        .card-4 { background-image: url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80'); }
+        .card-5 { background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80'); }
+
+        .content-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 100;
+            padding: 3rem 4rem;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-body { max-width: 950px; margin: 0 auto; color: #e5e7eb; }
+        
+        .close-btn { 
+            position: absolute; 
+            top: 2rem; 
+            right: 4rem; 
+            color: #9ca3af; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            background: rgba(255,255,255,0.08);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            z-index: 101;
+        }
+        .close-btn:hover { color: #fff; background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.5); }
+
+        /* Puzzle Styling */
+        .puzzle-wrapper { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(11, 40px);
+            grid-template-rows: repeat(11, 40px);
+            gap: 4px;
+            background-color: rgba(18, 18, 18, 0.8);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            user-select: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .grid-cell {
+            background-color: #111827;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #374151;
+        }
+
+        .grid-cell:hover { background-color: #3b82f6; transform: scale(1.05); }
+        .grid-cell.selected { background-color: #2563eb; color: white; box-shadow: 0 0 10px rgba(37, 99, 235, 0.8); }
+        .grid-cell.found { background-color: #10b981 !important; color: white !important; border-color: #059669 !important; }
+
+        .word-list {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(18, 18, 18, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .word-list h3 { margin-bottom: 1rem; color: #60a5fa; }
+        .word-item { padding: 6px 0; font-size: 1rem; color: #d1d5db; transition: color 0.3s; }
+        .word-item.found-word { text-decoration: line-through; color: #10b981; font-weight: bold; }
+
+        /* --- 4 PICS 1 WORD GRID STYLES --- */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .game-card {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .game-card:hover { border-color: rgba(59, 130, 246, 0.5); }
+
+        .four-pics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            height: 260px;
+            background: #111827;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid #374151;
+            margin-bottom: 1rem;
+        }
+
+        .pic-box {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #1f2937;
+        }
+
+        .letter-inputs {
+            display: flex;
+            gap: 6px;
+            margin: 0.8rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .letter-box {
+            width: 36px;
+            height: 42px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #1f2937;
+            color: #38bdf8;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .letter-box:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+            background: #111827;
+        }
+
+        .letter-box.given {
+            background: #374151;
+            color: #9ca3af;
+            border-color: #4b5563;
+        }
+
+        .letter-box.correct {
+            background: #065f46 !important;
+            color: #34d399 !important;
+            border-color: #10b981 !important;
+        }
+
+        .letter-box.wrong {
+            background: #7f1d1d !important;
+            color: #f87171 !important;
+            border-color: #ef4444 !important;
+        }
+
+        .card-status {
+            font-size: 0.85rem;
+            font-weight: 600;
+            min-height: 20px;
+            margin-top: 0.3rem;
+        }
+
+        iframe { width: 100%; height: 380px; border-radius: 12px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; border: 1px solid #374151; text-align: center; }
+        th { background-color: rgba(31, 41, 55, 0.9); color: #60a5fa; }
+
+        .concept-card {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: border-color 0.3s;
+        }
+        .concept-card:hover { border-color: rgba(255,255,255,0.2); }
+
+        .concept-badge {
+            background: rgba(30, 58, 138, 0.6);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+
+        .graph-container {
+            background: rgba(26, 35, 50, 0.6);
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, opacity 0.2s;
+            margin-top: 1.5rem;
+        }
+        .submit-btn:hover { transform: translateY(-2px); opacity: 0.95; }
+
+        @media (max-width: 768px) {
+            body { padding: 1.5rem; }
+            .hero-title { font-size: 2rem; }
+            nav { display: none; }
+            .grid-container { grid-template-columns: repeat(11, 28px); grid-template-rows: repeat(11, 28px); }
+            .grid-cell { font-size: 0.8rem; }
+            .game-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MODERN LOGIN OVERLAY -->
+    <div id="login-overlay">
+        <div class="login-card-wrapper">
+            <div class="login-card">
+                <div class="login-badge">Interactive Module</div>
+                <h2>Araling Panlipunan 9</h2>
+                <p>I-verify ang iyong pagkakakilanlan bago simulan ang modyul.</p>
+                <form onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label for="input-name">Buong Pangalan</label>
+                        <input type="text" id="input-name" class="login-input" placeholder="Hal: Juan Dela Cruz" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="input-section">Seksiyon</label>
+                        <input type="text" id="input-section" class="login-input" placeholder="Hal: 9-Newton" required>
+                    </div>
+                    <button type="submit" class="login-btn">Mag Log-In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">AP Modyul 2</div>
+        <div id="display-student-info" class="student-info-display">Mag-aaral</div>
+        <nav>
+            <a onclick="openModal('layunin')">Layunin</a>
+            <a onclick="openModal('balikan')">Balikan (Puzzle)</a>
+            <a onclick="openModal('tuklasin')">Tuklasin</a>
+            <a onclick="openModal('konsepto')">Konsepto</a>
+            <a onclick="openModal('pagyamanin')">Pagyamanin</a>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="hero-title">Mga Konsepto at Salik na Nakaaapekto sa Suplay</h1>
+        <p class="hero-subtitle">Araling Panlipunan 9 • Ikalawang Markahan</p>
+    </section>
+
+    <div class="cards-container">
+        <div class="card card-1" onclick="openModal('layunin')">
+            <div class="card-content">
+                <div class="card-category">Aralin 1</div>
+                <div class="card-title">Layunin at Inaasahan</div>
+            </div>
+        </div>
+
+        <div class="card card-2" onclick="openModal('balikan')">
+            <div class="card-content">
+                <div class="card-category">Subukin</div>
+                <div class="card-title">Balikan: Word Puzzle Game</div>
+            </div>
+        </div>
+
+        <div class="card card-3" onclick="openModal('tuklasin')">
+            <div class="card-content">
+                <div class="card-category">Aktiviti</div>
+                <div class="card-title">Tuklasin: 4 Pics 1 Word</div>
+            </div>
+        </div>
+
+        <div class="card card-4" onclick="openModal('konsepto')">
+            <div class="card-content">
+                <div class="card-category">Leksyon</div>
+                <div class="card-title">Konsepto at Batas ng Suplay</div>
+            </div>
+        </div>
+
+        <div class="card card-5" onclick="openModal('pagyamanin')">
+            <div class="card-content">
+                <div class="card-category">Pagtatasa</div>
+                <div class="card-title">Pagyamanin at Gawain</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONTAINER -->
+    <div id="modal" class="content-modal">
+        <span class="close-btn" onclick="closeModal()">✕ Isara</span>
+        <div class="modal-body">
+            
+            <!-- LAYUNIN -->
+            <div id="content-layunin" class="modal-section" style="display:none;">
+                <h1 style="font-family:'Playfair Display'; margin-bottom:0.5rem; color:#ffffff;">Mga Layunin sa Pagkatuto</h1>
+                <p style="color:#9ca3af; margin-bottom:1.5rem; font-size:0.95rem;">Pagkatapos ng araling ito, ang mga mag-aaral ay inaasahang magagawa ang mga sumusunod:</p>
+                <hr style="border-color:#374151; margin-bottom:2rem;">
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(31, 41, 55, 0.6); border: 1px solid #374151; border-left: 4px solid #3b82f6; padding: 1.2rem; border-radius: 8px;">
+                        <h3 style="color:#60a5fa; font-size:1.1rem; font-weight:600; margin-bottom:0.5rem;">Kaalaman (Knowledge)</h3>
+                        <p style="color:#d1d5db; font-size:0.95rem; line-height:1.6;">Naipaliliwanag ang kahulugan ng suplay at ang ugnayan ng presyo at dami ng suplay batay sa <strong>Batas ng Suplay</strong>.</p>
+                    </div>
+                    <div style="background: rgba(31, 41, 55, 0.6); border: 1px solid #374151; border-left: 4px solid #10b981; padding: 1.2rem; border-radius: 8px;">
+                        <h3 style="color:#34d399; font-size:1.1rem; font-weight:600; margin-bottom:0.5rem;">Pagsusuri (Analysis)</h3>
+                        <p style="color:#d1d5db; font-size:0.95rem; line-height:1.6;">Nasusuri ang iba't ibang salik na nakaaapekto sa suplay bukod sa presyo.</p>
+                    </div>
+                    <div style="background: rgba(31, 41, 55, 0.6); border: 1px solid #374151; border-left: 4px solid #f59e0b; padding: 1.2rem; border-radius: 8px;">
+                        <h3 style="color:#fbbf24; font-size:1.1rem; font-weight:600; margin-bottom:0.5rem;">Kasanayan (Application)</h3>
+                        <p style="color:#d1d5db; font-size:0.95rem; line-height:1.6;">Nailalarawan ang <strong>Supply Schedule</strong>, <strong>Supply Curve</strong>, at nakapagtutuos ng <strong>Supply Function</strong>.</p>
+                    </div>
+                    <div style="background: rgba(31, 41, 55, 0.6); border: 1px solid #374151; border-left: 4px solid #ec4899; padding: 1.2rem; border-radius: 8px;">
+                        <h3 style="color:#f472b6; font-size:1.1rem; font-weight:600; margin-bottom:0.5rem;">Pagtataya (Values)</h3>
+                        <p style="color:#d1d5db; font-size:0.95rem; line-height:1.6;">Matalinong nakapagpapasya sa pagtugon sa mga pagbabago sa pamilihan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BALIKAN -->
+            <div id="content-balikan" class="modal-section" style="display:none;">
+                <h1 style="font-family:'Playfair Display'; margin-bottom:1rem;">Balikan: Nasa Kahon Ang Sagot</h1>
+                <hr style="border-color:#374151; margin-bottom:1rem;">
+                <p><strong>Panuto:</strong> I-click ang mga letra sa puzzle para mabuo ang mga salitang may kaugnayan sa aralin.</p>
+                <div class="puzzle-wrapper">
+                    <div class="grid-container" id="grid"></div>
+                    <div class="word-list">
+                        <h3>Mga Hahanaping Salita:</h3>
+                        <div id="word-DEMAND" class="word-item">• DEMAND</div>
+                        <div id="word-CURVE" class="word-item">• CURVE</div>
+                        <div id="word-KITA" class="word-item">• KITA</div>
+                        <div id="word-FUNCTION" class="word-item">• FUNCTION</div>
+                        <button onclick="resetPuzzle()" style="margin-top:1.5rem; padding:8px 16px; background:#2563eb; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Reset Puzzle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TUKLASIN -->
+            <div id="content-tuklasin" class="modal-section" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                    <h1 style="font-family:'Playfair Display'; color:#fff;">Gawain 2: 4 Pics 1 Word</h1>
+                    <span style="background:#1e3a8a; color:#60a5fa; padding:4px 12px; border-radius:20px; font-size:0.85rem; font-weight:600; border:1px solid #3b82f6;">🎮 Digital Game</span>
+                </div>
+                <p style="color:#9ca3af; margin-bottom:1.5rem;"><strong>Panuto:</strong> Hulaan ang tamang salita gamit ang apat na larawan. I-type ang mga kulang na letra sa loob ng mga kahon.</p>
+                <hr style="border-color:#374151; margin-bottom:1.5rem;">
+
+                <div class="game-grid">
+                    <div class="game-card">
+                        <div class="four-pics-container">
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=300&q=80');"></div>
+                        </div>
+                        <div class="letter-inputs" data-answer="PANINDA">
+                            <input class="letter-box given" value="P" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic1_1" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="N" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic1_2" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="N" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic1_3" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="A" readonly>
+                        </div>
+                        <div class="card-status"></div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="four-pics-container">
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80');"></div>
+                        </div>
+                        <div class="letter-inputs" data-answer="NEGOSYANTE">
+                            <input class="letter-box given" value="N" readonly>
+                            <input class="letter-box given" value="E" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic2_1" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic2_2" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="S" readonly>
+                            <input class="letter-box given" value="Y" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic2_3" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic2_4" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic2_5" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="E" readonly>
+                        </div>
+                        <div class="card-status"></div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="four-pics-container">
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1488459716790-a3db5ea8d7ac?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=300&q=80');"></div>
+                        </div>
+                        <div class="letter-inputs" data-answer="PRODUKSYON">
+                            <input class="letter-box given" value="P" readonly>
+                            <input class="letter-box given" value="A" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic3_1" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic3_2" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic3_3" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic3_4" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box given" value="A" readonly>
+                        </div>
+                        <div class="card-status"></div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="four-pics-container">
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=300&q=80');"></div>
+                            <div class="pic-box" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=300&q=80');"></div>
+                        </div>
+                        <div class="letter-inputs" data-answer="PAMILIHAN">
+                            <input class="letter-box given" value="P" readonly>
+                            <input class="letter-box given" value="B" readonly>
+                            <input class="letter-box user-input saved-input" data-id="pic4_1" maxlength="1" onkeyup="checkAnswer(this)">
+                            <input class="letter-box user-input saved-input" data-id="pic4_2" maxlength="1" onkeyup="checkAnswer(this)">
+                        </div>
+                        <div class="card-status"></div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 2rem;">
+                    <h3 style="color:#60a5fa; margin-bottom:1rem;">Pamprosesong Tanong:</h3>
+                    <p style="color:#d1d5db; margin-bottom:0.5rem;"><strong>1.</strong> Ano-ano ang salitang nabuo mula sa mga larawan?</p>
+                    <textarea class="saved-input" data-id="pampro_1" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:70px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical; margin-bottom:1rem;"></textarea>
+                    
+                    <p style="color:#d1d5db; margin-bottom:0.5rem;"><strong>2.</strong> Anong konsepto ang mabubuo batay sa mga larawan?</p>
+                    <textarea class="saved-input" data-id="pampro_2" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:70px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical; margin-bottom:1rem;"></textarea>
+                    
+                    <p style="color:#d1d5db; margin-bottom:0.5rem;"><strong>3.</strong> Paano mo maiuugnay ang mabubuo mong konsepto sa mga prodyuser?</p>
+                    <textarea class="saved-input" data-id="pampro_3" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:70px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical;"></textarea>
+                </div>
+            </div>
+
+            <!-- KONSEPTO -->
+            <div id="content-konsepto" class="modal-section" style="display:none;">
+                <h1 style="font-family:'Playfair Display'; margin-bottom:0.5rem; color:#ffffff;">A. Konsepto ng Suplay</h1>
+                <hr style="border-color:#374151; margin-bottom:1.5rem;">
+
+                <div class="concept-card" style="border-left: 4px solid #ef4444;">
+                    <span class="concept-badge" style="background:#7f1d1d; color:#fca5a5;">Gabay na Video</span>
+                    <p style="color:#d1d5db; margin-bottom:1rem;">Panoorin ang maikling video na ito bago talakayin ang mga konsepto at salik na nakaaapekto sa suplay:</p>
+                    <iframe src="https://www.youtube.com/embed/eoSsFYdbFSw" title="Konsepto ng Suplay Video" allowfullscreen></iframe>
+                </div>
+
+                <div class="concept-card" style="border-left: 4px solid #3b82f6;">
+                    <span class="concept-badge">Kahulugan ng Suplay</span>
+                    <p style="color:#d1d5db; line-height:1.6;">
+                        Ang suplay ay tumutukoy sa dami ng produkto at serbisyo na handa at kayang ipagbili ng mga prodyuser sa iba’t ibang presyo sa isang takdang panahon.
+                    </p>
+                </div>
+
+                <div class="concept-card" style="border-left: 4px solid #10b981;">
+                    <span class="concept-badge" style="background:#065f46; color:#34d399;">Ang Batas ng Suplay</span>
+                    <p style="color:#d1d5db; line-height:1.6; margin-bottom:0.8rem;">
+                        Ayon sa Batas ng Suplay, kapag tumataas ang presyo, tumataas din ang dami ng produkto o serbisyo na handa at kayang ipagbili.
+                    </p>
+                    <p style="color:#d1d5db; line-height:1.6; margin-bottom:0.8rem;">
+                        Ang <em>ceteris paribus</em> ay nangangahulugang kapag bumababa ang presyo, bumababa rin ang dami ng produkto o serbisyo na handa at kayang ipagbili.
+                    </p>
+                    <p style="color:#d1d5db; line-height:1.6;">
+                        Ipinapakita ng batas na ito na ang presyo ng produkto o serbisyo sa pamilihan ang pangunahing batayan ng prodyuser sa paglikha. Dahil dito, higit ang kanilang pagnanais na magbenta ng marami kapag mataas ang presyo.
+                    </p>
+                </div>
+
+                <h3 style="color:#60a5fa; margin:1.5rem 0 1rem 0;">Tatlong paraan upang maipakita ang Ugnayan ng Presyo at Suplay</h3>
+
+                <div class="concept-card">
+                    <h4 style="color:#38bdf8; margin-bottom:0.5rem;">Supply Schedule</h4>
+                    <p style="color:#9ca3af; margin-bottom:1rem;">Ang supply schedule ay isang talaan na nagpapakita ng dami ng kaya at gustong ipagbili ng mga prodyuser sa iba’t ibang presyo.</p>
+                    <p style="font-weight:600; color:#fff; margin-bottom:0.5rem;">Hal. Supply Schedule ng Kendi</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Presyo (piso bawat piraso)</th>
+                                <th>Quantity Supplied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Php 5.00</td><td>50</td></tr>
+                            <tr><td>4.00</td><td>40</td></tr>
+                            <tr><td>3.00</td><td>30</td></tr>
+                            <tr><td>2.00</td><td>20</td></tr>
+                            <tr><td>1.00</td><td>10</td></tr>
+                            <tr><td>0</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="color:#9ca3af; font-size:0.95rem; margin-top:0.8rem; line-height:1.6;">
+                        Ang iskedyul na makikita sa talahanayan ay tumutukoy sa quantity supplied para sa kendi sa iba’t ibang presyo. Halimbawa, sa halagang piso (Php 1.00) bawat piraso ng kendi, sampu (10) lamang ang dami ng handa at kayang ipagbili ng mga prodyuser. Malinaw na ipinapakita ang direktang ugnayan ng presyo at quantity supplied ng kendi para sa prodyuser.
+                    </p>
+                </div>
+
+                <div class="concept-card">
+                    <h4 style="color:#38bdf8; margin-bottom:0.5rem;">Supply Curve</h4>
+                    <p style="color:#9ca3af; margin-bottom:1rem;">Ang supply curve ay isang grapikong paglalarawan ng ugnayan ng presyo at quantity supplied.</p>
+                    
+                    <div class="graph-container">
+                        <svg width="340" height="240" viewBox="0 0 340 240" style="background:#111827; border-radius:8px; border:1px solid #374151;">
+                            <line x1="50" y1="30" x2="50" y2="200" stroke="#4b5563" stroke-width="2"/>
+                            <line x1="50" y1="200" x2="310" y2="200" stroke="#4b5563" stroke-width="2"/>
+                            <line x1="50" y1="200" x2="290" y2="40" stroke="#ef4444" stroke-width="3"/>
+                            <circle cx="50" cy="200" r="5" fill="#ef4444"/>
+                            <circle cx="98" cy="168" r="5" fill="#ef4444"/>
+                            <circle cx="146" cy="136" r="5" fill="#ef4444"/>
+                            <circle cx="194" cy="104" r="5" fill="#ef4444"/>
+                            <circle cx="242" cy="72" r="5" fill="#ef4444"/>
+                            <circle cx="290" cy="40" r="5" fill="#ef4444"/>
+                            <text x="20" y="45" fill="#9ca3af" font-size="12">5</text>
+                            <text x="20" y="77" fill="#9ca3af" font-size="12">4</text>
+                            <text x="20" y="109" fill="#9ca3af" font-size="12">3</text>
+                            <text x="20" y="141" fill="#9ca3af" font-size="12">2</text>
+                            <text x="20" y="173" fill="#9ca3af" font-size="12">1</text>
+                            <text x="20" y="205" fill="#9ca3af" font-size="12">0</text>
+                            <text x="90" y="220" fill="#9ca3af" font-size="12">10</text>
+                            <text x="138" y="220" fill="#9ca3af" font-size="12">20</text>
+                            <text x="186" y="220" fill="#9ca3af" font-size="12">30</text>
+                            <text x="234" y="220" fill="#9ca3af" font-size="12">40</text>
+                            <text x="282" y="220" fill="#9ca3af" font-size="12">50</text>
+                            <text x="10" y="20" fill="#38bdf8" font-size="11" font-weight="bold">Presyo ng kendi sa piso</text>
+                            <text x="180" y="235" fill="#38bdf8" font-size="11" font-weight="bold">Quantity supplied</text>
+                            <text x="295" y="35" fill="#ef4444" font-size="14" font-weight="bold">S</text>
+                        </svg>
+                    </div>
+                    <p style="color:#d1d5db; font-size:0.95rem; line-height:1.6; margin-top:1rem;">
+                        Ang graph sa itaas ay batay sa supply schedule na nasa talahanayan. Kung ilalapat sa graph ang iba’t ibang kumbinasyon ng mga presyo at quantity supplied ay mabubuo ang supply curve para dito. Halimbawa, sa Punto B presyo ng kendi sa piso, ang presyo ay piso (Php 1), sampu (10) ang dami ng kendi na gusto at handang ipagbili ng prodyuser; sa punto C na ang presyo ay dalawang piso (Php 2), dalawampu (20) ang dami ng kendi na gusto at handang ipagbili ng prodyuser. Kung tutuntunin ang mga puntong ito hanggang punto F ay makakabuo ng isang kurbang pataas o upward sloping curve. Ang kurbang ito ay nagpapakita ng direktang ugnayan sa pagitan ng presyo at sa dami ng gusto at handang ipagbili ng mga mamimili.
+                    </p>
+                </div>
+
+                <div class="concept-card">
+                    <h4 style="color:#38bdf8; margin-bottom:0.5rem;">Supply Function</h4>
+                    <p style="color:#9ca3af; margin-bottom:1rem;">Ang supply function ay isa ring paraan ng pagpapakita ng ugnayan ng presyo at quantity supplied. Ito ay sa pamamagitan ng mathematical equation</p>
+                    
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background:#1f2937; padding:1rem; border-radius:8px; border:1px solid #374151;">
+                            <p style="font-weight:bold; color:#60a5fa; margin-bottom:0.5rem;">1. Qs = f(P)</p>
+                            <p style="font-size:0.9rem; color:#d1d5db; font-weight:bold;">Kung saan:</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">Qs (quantity supplied) = ay tumatayong dependent Variable</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">P (presyo) = independent variable</p>
+                        </div>
+                        <div style="background:#1f2937; padding:1rem; border-radius:8px; border:1px solid #374151;">
+                            <p style="font-weight:bold; color:#60a5fa; margin-bottom:0.5rem;">2. Qs = c + bP</p>
+                            <p style="font-size:0.9rem; color:#d1d5db; font-weight:bold;">Kung saan:</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">Qs = dami ng suplay</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">P = presyo</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">c = intercept (bilang ng Qs kung ang presyo ay 0)</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">b = slope = ΔQs</p>
+                        </div>
+                    </div>
+
+                    <p style="color:#d1d5db; line-height:1.6; margin-bottom:1rem;">
+                        Ngayon, suriin at pag-aralan natin ang kompyutasyon sa ibaba upang mapatunayan na ang relasyon ng datos ng supply schedule at ang supply function ay iisa. Gamitin ang supply function mula sa supply schedule para sa kendi, kompyutin ang Qs kung: <strong>Qs = 0 + 4P</strong> *(o Qs = 0 + 10P batay sa halimbawa)*
+                    </p>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="background:#111827; padding:1rem; border-radius:8px; border:1px solid #374151;">
+                            <p style="color:#38bdf8; font-weight:bold; margin-bottom:0.5rem;">Kapag ang P = 1, Qs = ?</p>
+                            <p style="font-family:monospace; color:#d1d5db;">Qs = 0 + 10P<br>Qs = 0 + 10(1)<br>Qs = 0 + 10<br><strong style="color:#34d399;">Qs = 10 piraso</strong></p>
+                        </div>
+                        <div style="background:#111827; padding:1rem; border-radius:8px; border:1px solid #374151;">
+                            <p style="color:#38bdf8; font-weight:bold; margin-bottom:0.5rem;">Kapag ang P = 5, Qs = ?</p>
+                            <p style="font-family:monospace; color:#d1d5db;">Qs = 0 + 10P<br>Qs = 0 + 10(5)<br>Qs = 0 + 50<br><strong style="color:#34d399;">Qs = 50 piraso</strong></p>
+                        </div>
+                    </div>
+
+                    <p style="color:#9ca3af; font-size:0.95rem; margin-top:1rem; line-height:1.6;">
+                        Gamit ang supply function ay makuha ang dami ng quantity supplied kung may ibinigay na presyo. I-substitute lamang ang presyo sa variable na P at i-multiply ito sa slope na +10 at idagdag ang intercept na 0.
+                    </p>
+                </div>
+            </div>
+
+            <!-- PAGYAMANIN -->
+            <div id="content-pagyamanin" class="modal-section" style="display:none;">
+                <h1 style="font-family:'Playfair Display'; margin-bottom:0.5rem;">Pagyamanin</h1>
+                <p style="color:#9ca3af; margin-bottom:1.5rem;">Sagutan ang mga gawain sa ibaba.</p>
+                <hr style="border-color:#374151; margin-bottom:2rem;">
+
+                <h3 style="color:#60a5fa; margin-bottom:0.5rem;">Gawain 1: SA-KAT-HA (Salik-Katangian-Halimbawa)</h3>
+                <p style="color:#9ca3af; font-size:0.9rem; margin-bottom:1rem;">Punan ang talahanayan ng mga iba pang salik na nakaaapekto sa suplay bukod sa presyo.</p>
+                <div style="overflow-x:auto; margin-bottom:2.5rem;">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th style="width:30%;">Iba pang Salik na Nakaaapekto sa Suplay</th>
+                                <th style="width:40%;">Katangian</th>
+                                <th style="width:30%;">Halimbawa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="saved-input" data-id="g1_r1_c1" placeholder="Salik..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r1_c2" placeholder="Katangian..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r1_c3" placeholder="Halimbawa..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="saved-input" data-id="g1_r2_c1" placeholder="Salik..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r2_c2" placeholder="Katangian..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r2_c3" placeholder="Halimbawa..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="saved-input" data-id="g1_r3_c1" placeholder="Salik..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r3_c2" placeholder="Katangian..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r3_c3" placeholder="Halimbawa..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="saved-input" data-id="g1_r4_c1" placeholder="Salik..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r4_c2" placeholder="Katangian..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r4_c3" placeholder="Halimbawa..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="saved-input" data-id="g1_r5_c1" placeholder="Salik..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r5_c2" placeholder="Katangian..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                                <td><input type="text" class="saved-input" data-id="g1_r5_c3" placeholder="Halimbawa..." style="width:100%; background:#111827; border:1px solid #374151; color:#fff; padding:8px; border-radius:4px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color:#60a5fa; margin-bottom:0.5rem;">Gawain 2: ANO ANG DESISYON MO?</h3>
+                <div style="background:#111827; padding:1.2rem; border-radius:8px; margin-bottom:1rem; border:1px solid #374151;">
+                    <p style="color:#d1d5db; margin-bottom:0.8rem;"><strong>1.</strong> Mayroon kang pwesto ng bigasan at marami kang nakatabing sako-sakong bigas na nabili mo lamang nang mura. Makalipas ang ilang araw, tumaas ang presyo nito. Ano ang gagawin mo?</p>
+                    <textarea class="saved-input" data-id="g2_q1" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:80px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical;"></textarea>
+                </div>
+                <div style="background:#111827; padding:1.2rem; border-radius:8px; margin-bottom:1rem; border:1px solid #374151;">
+                    <p style="color:#d1d5db; margin-bottom:0.8rem;"><strong>2.</strong> Tumataas ang gastos sa produksyon dulot ng COVID-19 pandemic, hindi makapagtaas ng presyo sapagkat baka marami ang hindi na bumili sa iyo, ano ang dapat mong gawin?</p>
+                    <textarea class="saved-input" data-id="g2_q2" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:80px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical;"></textarea>
+                </div>
+                <div style="background:#111827; padding:1.2rem; border-radius:8px; margin-bottom:1rem; border:1px solid #374151;">
+                    <p style="color:#d1d5db; margin-bottom:0.8rem;"><strong>3.</strong> Maraming balakid na kakaharapin ang iyong negosyo. Ilan dito ang banda ng kalamidad at krisis sa kabuhayan at sa ekonomiya. Paano mo mapatatatag ang iyong negosyo?</p>
+                    <textarea class="saved-input" data-id="g2_q3" placeholder="Isulat ang iyong sagot dito..." style="width:100%; height:80px; background:#1f2937; border:1px solid #374151; color:#fff; padding:10px; border-radius:6px; resize:vertical;"></textarea>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="submit-btn" onclick="submitAndDownload()">I-submit at I-download ang Sagot (TXT file)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const savedName = localStorage.getItem('student_name');
+            const savedSection = localStorage.getItem('student_section');
+            if (savedName && savedSection) {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('display-student-info').innerText = `${savedName} (${savedSection})`;
+            }
+        };
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const name = document.getElementById('input-name').value.trim();
+            const section = document.getElementById('input-section').value.trim();
+
+            if (name && section) {
+                localStorage.setItem('student_name', name);
+                localStorage.setItem('student_section', section);
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('display-student-info').innerText = `${name} (${section})`;
+            }
+        }
+
+        const puzzleGrid = [
+            ['A', 'G', 'D', 'A', 'G', 'E', 'G', 'E', 'Q', 'L', 'P'],
+            ['H', 'S', 'E', 'I', 'B', 'I', 'G', 'A', 'P', 'A', 'A'],
+            ['A', 'R', 'M', 'R', 'A', 'L', 'B', 'A', 'N', 'K', 'N'],
+            ['Y', 'I', 'A', 'P', 'I', 'R', 'U', 'A', 'L', 'T', 'L'],
+            ['D', 'N', 'N', 'H', 'J', 'U', 'N', 'C', 'B', 'B', 'A'],
+            ['E', 'D', 'D', 'C', 'U', 'R', 'V', 'E', 'K', 'O', 'S'],
+            ['M', 'Z', 'U', 'F', 'L', 'C', 'N', 'V', 'U', 'H', 'A'],
+            ['A', 'V', 'R', 'A', 'W', 'U', 'A', 'S', 'R', 'F', 'P'],
+            ['N', 'R', 'P', 'C', 'Y', 'N', 'R', 'W', 'B', 'K', 'P'],
+            ['D', 'F', 'U', 'N', 'C', 'T', 'I', 'O', 'N', 'P', 'P'],
+            ['A', 'K', 'I', 'T', 'A', 'R', 'E', 'P', 'N', 'O', 'K']
+        ];
+
+        const targetWords = {
+            'DEMAND': [[4,0], [5,0], [6,0], [7,0], [8,0], [9,0]],
+            'CURVE': [[5,3], [5,4], [5,5], [5,6], [5,7]],
+            'KITA': [[10,1], [10,2], [10,3], [10,4]],
+            'FUNCTION': [[9,1], [9,2], [9,3], [9,4], [9,5], [9,6], [9,7], [9,8]]
+        };
+
+        let selectedCells = [];
+        let foundWords = new Set();
+
+        function openModal(key) {
+            const sections = document.querySelectorAll('.modal-section');
+            sections.forEach(sec => sec.style.display = 'none');
+
+            const activeSection = document.getElementById('content-' + key);
+            if(activeSection) {
+                activeSection.style.display = 'block';
+            }
+
+            document.getElementById('modal').style.display = 'block';
+            if (key === 'balikan') renderPuzzle();
+            restoreInputs();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('saved-input') || e.target.classList.contains('user-input')) {
+                if (e.target.dataset.id) {
+                    localStorage.setItem(e.target.dataset.id, e.target.value);
+                }
+            }
+        });
+
+        function restoreInputs() {
+            const inputs = document.querySelectorAll('.saved-input, .user-input');
+            inputs.forEach(input => {
+                const id = input.dataset.id;
+                if (id && localStorage.getItem(id) !== null) {
+                    input.value = localStorage.getItem(id);
+                    if(input.classList.contains('user-input')) {
+                        checkAnswer(input);
+                    }
+                }
+            });
+        }
+
+        function submitAndDownload() {
+            const name = localStorage.getItem('student_name') || 'Mag-aaral';
+            const section = localStorage.getItem('student_section') || 'Walang Seksiyon';
+
+            let report = `=========================================\n`;
+            report += ` ULAT NG MGA SAGOT - ARALING PANLIPUNAN 9\n`;
+            report += `=========================================\n`;
+            report += `Pangalan: ${name}\n`;
+            report += `Seksiyon: ${section}\n`;
+            report += `Petsa / Oras: ${new Date().toLocaleString()}\n`;
+            report += `=========================================\n\n`;
+
+            report += `--- TUKLASIN (4 PICS 1 WORD) & PAMPROSESONG TANONG ---\n`;
+            report += `4 Pics 1 Word - Paninda (Letra 1): ${localStorage.getItem('pic1_1') || ''}\n`;
+            report += `4 Pics 1 Word - Paninda (Letra 2): ${localStorage.getItem('pic1_2') || ''}\n`;
+            report += `4 Pics 1 Word - Paninda (Letra 3): ${localStorage.getItem('pic1_3') || ''}\n`;
+            report += `4 Pics 1 Word - Negosyante (Letra 1): ${localStorage.getItem('pic2_1') || ''}\n`;
+            report += `4 Pics 1 Word - Negosyante (Letra 2): ${localStorage.getItem('pic2_2') || ''}\n`;
+            report += `4 Pics 1 Word - Negosyante (Letra 3): ${localStorage.getItem('pic2_3') || ''}\n`;
+            report += `4 Pics 1 Word - Negosyante (Letra 4): ${localStorage.getItem('pic2_4') || ''}\n`;
+            report += `4 Pics 1 Word - Negosyante (Letra 5): ${localStorage.getItem('pic2_5') || ''}\n`;
+            report += `4 Pics 1 Word - Produksyon (Letra 1): ${localStorage.getItem('pic3_1') || ''}\n`;
+            report += `4 Pics 1 Word - Produksyon (Letra 2): ${localStorage.getItem('pic3_2') || ''}\n`;
+            report += `4 Pics 1 Word - Produksyon (Letra 3): ${localStorage.getItem('pic3_3') || ''}\n`;
+            report += `4 Pics 1 Word - Produksyon (Letra 4): ${localStorage.getItem('pic3_4') || ''}\n`;
+            report += `4 Pics 1 Word - Pamilihan (Letra 1): ${localStorage.getItem('pic4_1') || ''}\n`;
+            report += `4 Pics 1 Word - Pamilihan (Letra 2): ${localStorage.getItem('pic4_2') || ''}\n\n`;
+
+            report += `Pamprosesong Tanong 1: ${localStorage.getItem('pampro_1') || ''}\n`;
+            report += `Pamprosesong Tanong 2: ${localStorage.getItem('pampro_2') || ''}\n`;
+            report += `Pamprosesong Tanong 3: ${localStorage.getItem('pampro_3') || ''}\n\n`;
+
+            report += `--- PAGYAMANIN GAWAIN 1 (SA-KAT-HA) ---\n`;
+            for(let r = 1; r <= 5; r++) {
+                report += `Row ${r} - Salik: ${localStorage.getItem(`g1_r${r}_c1`) || ''} | Katangian: ${localStorage.getItem(`g1_r${r}_c2`) || ''} | Halimbawa: ${localStorage.getItem(`g1_r${r}_c3`) || ''}\n`;
+            }
+
+            report += `\n--- PAGYAMANIN GAWAIN 2 (DESISYON MO) ---\n`;
+            report += `Tanong 1: ${localStorage.getItem('g2_q1') || ''}\n`;
+            report += `Tanong 2: ${localStorage.getItem('g2_q2') || ''}\n`;
+            report += `Tanong 3: ${localStorage.getItem('g2_q3') || ''}\n`;
+
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Sagot_AP9_${name.replace(/\s+/g, '_')}.txt`;
+            link.click();
+
+            alert(`Tagumpay! Na-download na ang iyong file na may pangalang "Sagot_AP9_${name.replace(/\s+/g, '_')}.txt". I-send o ipasa ito sa iyong guro sa pamamagitan ng Messenger, Email, o Google Classroom.`);
+        }
+
+        function renderPuzzle() {
+            const gridContainer = document.getElementById('grid');
+            if(!gridContainer) return;
+            gridContainer.innerHTML = '';
+            selectedCells = [];
+            foundWords.clear();
+
+            for (let r = 0; r < 11; r++) {
+                for (let c = 0; c < 11; c++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('grid-cell');
+                    cell.innerText = puzzleGrid[r][c];
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    cell.onclick = () => toggleCell(cell, r, c);
+                    gridContainer.appendChild(cell);
+                }
+            }
+        }
+
+        function toggleCell(cell, r, c) {
+            const index = selectedCells.findIndex(item => item.r === r && item.c === c);
+            if (index > -1) {
+                selectedCells.splice(index, 1);
+                if (!cell.classList.contains('found')) cell.classList.remove('selected');
+            } else {
+                selectedCells.push({ r, c, cell });
+                cell.classList.add('selected');
+            }
+            checkWords();
+        }
+
+        function checkWords() {
+            for (let word in targetWords) {
+                if (foundWords.has(word)) continue;
+                const coords = targetWords[word];
+                const isWordComplete = coords.every(coord => 
+                    selectedCells.some(selected => selected.r === coord[0] && selected.c === coord[1])
+                );
+                if (isWordComplete) {
+                    foundWords.add(word);
+                    coords.forEach(coord => {
+                        const cellEl = document.querySelector(`.grid-cell[data-row="${coord[0]}"][data-col="${coord[1]}"]`);
+                        if (cellEl) {
+                            cellEl.classList.remove('selected');
+                            cellEl.classList.add('found');
+                        }
+                    });
+                    const wordEl = document.getElementById(`word-${word}`);
+                    if (wordEl) wordEl.classList.add('found-word');
+                }
+            }
+        }
+
+        function resetPuzzle() {
+            renderPuzzle();
+            for (let word in targetWords) {
+                const el = document.getElementById(`word-${word}`);
+                if (el) el.classList.remove('found-word');
+            }
+        }
+
+        function checkAnswer(inputEl) {
+            const parent = inputEl.parentElement;
+            const targetAnswer = parent.dataset.answer;
+            const inputs = Array.from(parent.querySelectorAll('.letter-box'));
+            if (inputEl.value.length === 1) {
+                const nextInput = inputs[inputs.indexOf(inputEl) + 1];
+                if (nextInput && !nextInput.hasAttribute('readonly')) nextInput.focus();
+            }
+            const currentAnswer = inputs.map(i => i.value.toUpperCase()).join('');
+            const statusEl = parent.parentElement.querySelector('.card-status');
+            if (currentAnswer.length === targetAnswer.length) {
+                if (currentAnswer === targetAnswer) {
+                    inputs.forEach(i => { i.classList.remove('wrong'); i.classList.add('correct'); });
+                    statusEl.style.color = '#34d399';
+                    statusEl.innerHTML = '✓ TAMA ANG SAGOT!';
+                } else {
+                    inputs.forEach(i => { if(!i.classList.contains('given')) i.classList.add('wrong'); });
+                    statusEl.style.color = '#f87171';
+                    statusEl.innerHTML = '✗ MALI, SUBUKAN ULI';
+                }
+            } else {
+                inputs.forEach(i => i.classList.remove('correct', 'wrong'));
+                statusEl.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
